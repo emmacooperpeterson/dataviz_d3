@@ -27,5 +27,4 @@ msex_count <- sum(cases$minor_sex_bin)
 types <- c('labor', 'adult_sex', 'minor_sex')
 counts <- c(labor_count, asex_count, msex_count)
 df <- data.frame(types, counts)
-write_csv(df, 'counts_by_type.csv')
-
+write_csv(df, 'count_by_type.csv')
