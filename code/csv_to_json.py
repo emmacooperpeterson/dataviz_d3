@@ -19,7 +19,9 @@ def csv_to_json(csv_file, json_file, columns):
         if i > 0:
             json_list.append(row)
 
-    json.dump(json_list, jsonfile)
+    json.dump(json_list, jsonfile, indent=4)
+
+
 
 if __name__ == '__main__':
     csv_file = '../data/count_by_type.csv'
