@@ -1,7 +1,7 @@
 library(tidyverse)
 loadfonts()
 
-setwd('~/Desktop/repos/dataviz/project/data/')
+setwd('~/Desktop/repos/dataviz_d3/data/')
 
 #################
 ### LOAD DATA ###
