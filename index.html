@@ -3,13 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <script type="text/javascript" src="./d3/d3.min.js"></script>
-
-
-
-
+  <title>First d3 Graph</title>
 </head>
+
 <body>
 
+  <div class="container">
+    <div id="chart"></div>
+  </div>
+
+  <script>
+  d3.json("count_by_type.json", function(error, data) {
+    dataset = data;
+
+    makeBarchart();
+  });
+
+  function makeBarchart() {
+    console.log(dataset);
+  };
+
+  </script>
 
 
 </body>
