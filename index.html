@@ -6,6 +6,12 @@
   <title>First d3 Graph</title>
   <style>
     svg {background-color: #f4f4f4;}
+
+    /* bars */
+    .labor_bar {fill: #9a9b94;}
+    .adult_bar {fill: #f6c90e;}
+    .minor_bar {fill: #303841;}
+
   </style>
 </head>
 
@@ -68,6 +74,7 @@
       var g = svg.append('g')
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+      //bars
       g.selectAll(".bar")
         .data(dataset)
         .enter()
@@ -77,14 +84,21 @@
         .attr("y", 0)
         .attr("width", function(d) {return xScale.bandwidth();})
         .attr("height", function(d) {return yScale(d.count);})
-        .style("fill", function(d) {
+        /*.style("fill", function(d) {
           var col
           if (d.type == 'labor') {col='#9a9b94'}
           else if (d.type == 'adult_sex') {col = '#f6c90e'}
           else {col = '#303841'}
           return col
-        });
+        });*/
 
+        .attr("class", function(d) {
+          var c
+          if (d.type == 'labor') {c = 'labor_bar'}
+          else if (d.type == 'adult_sex') {c = 'adult_bar'}
+          else {c = 'minor_bar'}
+          return c
+        });
 
       //title
       svg.append("text")
