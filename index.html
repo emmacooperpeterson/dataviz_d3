@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <title>First d3 Graph</title>
+  <style>
+    svg {background-color: #f4f4f4;}
+  </style>
 </head>
 
 <body>
@@ -15,74 +18,89 @@
 
   <script>
 
-  var margin = {top: 100, right: 75, bottom: 125, left: 50};
-  var width = 800 - margin.left - margin.right;
-  var height = 400 - margin.top - margin.bottom;
+  //set margins
+    var margin = {top: 100, right: 75, bottom: 125, left: 50};
+    var width = 800 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
 
 
 
-  d3.json("count_by_type.json", function(error, data) {
-    if (error) throw error;
+    d3.json("count_by_type.json", function(error, data) {
+      if (error) throw error;
 
-    dataset = data;
+      dataset = data.sort(function(a,b) {return b.count - a.count;});
 
-    dataset.forEach(function (d) {
-      d.type = d.type
-      d.count = +d.count;
-    });
-
-    makeBarchart();
-
-  });
-
-
-
-  function makeBarchart() {
-    console.log(dataset);
-
-    var xScale = d3.scaleBand()
-      .domain(dataset.map(function(d) {return d.type;}))
-      .range([0,width]);
-
-    var yScale = d3.scaleLinear()
-      .domain([d3.max(dataset, function(d) {return d.count;}), 0])
-      .range([height, 0]);
-
-    svg = d3.select("#chart")
-      .append('svg')
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom);
-
-    svg.append('g')
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .call(d3.axisBottom(xScale));
-
-    svg.append('g')
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .call(d3.axisLeft(yScale));
-
-    var g = svg.append('g')
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-    g.selectAll(".bar")
-      .data(dataset)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) {return xScale(d.type);})
-      .attr("y", 0)
-      .attr("width", function(d) {return xScale.bandwidth();})
-      .attr("height", function(d) {return yScale(d.count);})
-      .style("fill", function(d) {
-        var col
-        if (d.type == 'labor') {col='#9a9b94'}
-        else if (d.type == 'adult_sex') {col = '#f6c90e'}
-        else {col = '#303841'}
-        return col
+      dataset.forEach(function (d) {
+        d.type = d.type
+        d.count = +d.count;
       });
 
-    };
+      makeBarchart();
+
+    });
+
+
+
+    function makeBarchart() {
+      console.log(dataset);
+
+      var xScale = d3.scaleBand()
+        .domain(dataset.map(function(d) {return d.type;}))
+        .range([0,width]);
+
+      var yScale = d3.scaleLinear()
+        .domain([d3.max(dataset, function(d) {return d.count;}), 0])
+        .range([height, 0]);
+
+      svg = d3.select("#chart")
+        .append('svg')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+      svg.append('g')
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(d3.axisTop(xScale));
+
+      svg.append('g')
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(d3.axisLeft(yScale));
+
+      var g = svg.append('g')
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      g.selectAll(".bar")
+        .data(dataset)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d) {return xScale(d.type);})
+        .attr("y", 0)
+        .attr("width", function(d) {return xScale.bandwidth();})
+        .attr("height", function(d) {return yScale(d.count);})
+        .style("fill", function(d) {
+          var col
+          if (d.type == 'labor') {col='#9a9b94'}
+          else if (d.type == 'adult_sex') {col = '#f6c90e'}
+          else {col = '#303841'}
+          return col
+        });
+
+
+      //title
+      svg.append("text")
+        .attr("y", margin.top / 2)
+        .attr("x", margin.right / 2)
+        .style("text-anchor", "left")
+        .text("Minor sex trafficking comprises majority of U.S. human trafficking prosecutions");
+
+      //subtitle
+      svg.append("text")
+        .attr("y", margin.top / 1.5)
+        .attr("x", margin.right / 2)
+        .style("text-anchor", "left")
+        .text("U.S. human trafficking cases by type");
+
+      };
 
 
 
