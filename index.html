@@ -45,8 +45,8 @@
       .range([0,width]);
 
     var yScale = d3.scaleLinear()
-      .domain([0, d3.max(dataset, function(d) {return d.count;})])
-      .range([height, 0])
+      .domain([d3.max(dataset, function(d) {return d.count;}), 0])
+      .range([height, 0]);
 
     svg = d3.select("#chart")
       .append('svg')
@@ -63,6 +63,7 @@
 
     var g = svg.append('g')
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
     g.selectAll(".bar")
       .data(dataset)
