@@ -31,6 +31,11 @@
       font-size: 12px;
       font-family: 'Courier New', serif;}
 
+    #source {
+      font-size: 10px;
+      font-family: 'Montserrat Light', sans-serif;
+    }
+
 
 
   </style>
@@ -183,9 +188,14 @@
         .attr('y', height + margin.top + 52)
         .attr('x', width - 1.5 * margin.right + 20)
         .text('Labor trafficking')
+
+      //source
+      svg.append('text')
+        .attr('id', 'source')
+        .attr('y', height + margin.top + 52)
+        .attr('x', margin.left)
+        .text('Source: HumanTraffickingData.org')
       };
-
-
 
 
 
