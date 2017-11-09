@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <title>First d3 Graph</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
   <style>
     svg {background-color: #f4f4f4;}
 
@@ -11,6 +14,19 @@
     .labor_bar {fill: #9a9b94;}
     .adult_bar {fill: #f6c90e;}
     .minor_bar {fill: #303841;}
+
+    #title {
+      font-size: 20px;
+      font-family: 'Montserrat', sans-serif;}
+
+    #subtitle {
+      font-size: 15px;
+      font-family: 'Courier New'}
+
+    #label {
+      font-size: 10px;
+      font-family: 'Montserrat', sans-serif;}
+
 
   </style>
 </head>
@@ -95,7 +111,7 @@
 
       //title
       svg.append("text")
-        .attr("class", "title")
+        .attr("id", "title")
         .attr("y", margin.left)
         .attr("x", margin.left)
         .style("text-anchor", "left")
@@ -103,7 +119,7 @@
 
       //subtitle
       svg.append("text")
-        .attr("class", "subtitle")
+        .attr("id", "subtitle")
         .attr("y", margin.left * 1.5)
         .attr("x", margin.left)
         .style("text-anchor", "left")
@@ -111,7 +127,7 @@
 
       //axis labels
       svg.append("text")
-        .attr("class", "label")
+        .attr("id", "label")
         .attr("y", margin.top - 30)
         .attr("x", (width + margin.left + margin.right) / 2)
         .style("text-anchor", "middle")
