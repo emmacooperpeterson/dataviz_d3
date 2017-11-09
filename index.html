@@ -71,9 +71,16 @@
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d) {return xScale(d.type);})
-      .attr("y", function (d) {return yScale(d.count);})
+      .attr("y", 0)
       .attr("width", function(d) {return xScale.bandwidth();})
       .attr("height", function(d) {return yScale(d.count);})
+      .style("fill", function(d) {
+        var col
+        if (d.type == 'labor') {col='#9a9b94'}
+        else if (d.type == 'adult_sex') {col = '#f6c90e'}
+        else {col = '#303841'}
+        return col
+      });
 
     };
 
