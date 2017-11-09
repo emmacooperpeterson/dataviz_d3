@@ -25,15 +25,16 @@
   <script>
 
   //set margins
-    var margin = {top: 100, right: 75, bottom: 125, left: 50};
+    var margin = {top: 175, right: 75, bottom: 100, left: 50};
     var width = 800 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
+    var height = 600 - margin.top - margin.bottom;
 
 
 
     d3.json("count_by_type.json", function(error, data) {
       if (error) throw error;
 
+      //sort big to small
       dataset = data.sort(function(a,b) {return b.count - a.count;});
 
       dataset.forEach(function (d) {
@@ -84,14 +85,6 @@
         .attr("y", 0)
         .attr("width", function(d) {return xScale.bandwidth();})
         .attr("height", function(d) {return yScale(d.count);})
-        /*.style("fill", function(d) {
-          var col
-          if (d.type == 'labor') {col='#9a9b94'}
-          else if (d.type == 'adult_sex') {col = '#f6c90e'}
-          else {col = '#303841'}
-          return col
-        });*/
-
         .attr("class", function(d) {
           var c
           if (d.type == 'labor') {c = 'labor_bar'}
@@ -102,17 +95,28 @@
 
       //title
       svg.append("text")
-        .attr("y", margin.top / 2)
-        .attr("x", margin.right / 2)
+        .attr("class", "title")
+        .attr("y", margin.left)
+        .attr("x", margin.left)
         .style("text-anchor", "left")
         .text("Minor sex trafficking comprises majority of U.S. human trafficking prosecutions");
 
       //subtitle
       svg.append("text")
-        .attr("y", margin.top / 1.5)
-        .attr("x", margin.right / 2)
+        .attr("class", "subtitle")
+        .attr("y", margin.left * 1.5)
+        .attr("x", margin.left)
         .style("text-anchor", "left")
         .text("U.S. human trafficking cases by type");
+
+      //axis labels
+      svg.append("text")
+        .attr("class", "label")
+        .attr("y", margin.top - 30)
+        .attr("x", (width + margin.left + margin.right) / 2)
+        .style("text-anchor", "middle")
+        .text("Type of trafficking");
+
 
       };
 
