@@ -87,11 +87,11 @@
 
       svg.append('g')
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(d3.axisTop(xScale));
+        .call(d3.axisTop(xScale).tickSizeInner(0).tickSizeOuter(0));
 
       svg.append('g')
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale).tickSizeInner(0).tickSizeOuter(0));
 
       var g = svg.append('g')
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
