@@ -15,11 +15,17 @@
 
   <script>
 
+  var margin = {top: 100, right: 75, bottom: 125, left: 50};
+  var width = 800 - margin.left - margin.right;
+  var height = 400 - margin.top - margin.bottom;
+
+
+
   d3.json("count_by_type.json", function(error, data) {
     if (error) throw error;
-    dataset = data;
 
     dataset.forEach(function (d) {
+      d.type = d.type
       d.count = +d.count;
     });
 
@@ -28,9 +34,46 @@
   });
 
 
+
   function makeBarchart() {
     console.log(dataset);
-  };
+
+    var xScale = d3.scaleBand()
+      .domain(function(d){return d.type;})
+      .rangeRound([0,width]);
+
+    var yScale = d3.scaleLinear()
+      .domain(d3.extent(dataset, function(d){ return d.count;}))
+      .rangeRound([height, 0])
+
+    svg = d3.select("#chart")
+      .append('svg')
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+
+    svg.append('g')
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(d3.axisBottom(xScale));
+
+    svg.append('g')
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(d3.axisLeft(yScale));
+
+    var g = svg.append('g')
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    g.selectAll(".bar")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) {return xScale(d.type);})
+      .attr("y", 0)
+      .attr("width", 75)
+      .attr("height", function(d) {return yScale(d.count);})
+
+    };
+
 
   </script>
 
