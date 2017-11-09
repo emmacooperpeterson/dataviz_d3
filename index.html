@@ -21,11 +21,16 @@
 
     #subtitle {
       font-size: 15px;
-      font-family: 'Courier New'}
+      font-family: 'Courier New', serif;}
 
     #label {
       font-size: 10px;
       font-family: 'Montserrat', sans-serif;}
+
+    .legend_text {
+      font-size: 12px;
+      font-family: 'Courier New', serif;}
+
 
 
   </style>
@@ -41,9 +46,9 @@
   <script>
 
   //set margins
-    var margin = {top: 175, right: 75, bottom: 100, left: 50};
-    var width = 800 - margin.left - margin.right;
-    var height = 600 - margin.top - margin.bottom;
+    var margin = {top: 150, right: 75, bottom: 100, left: 50};
+    var width = 600 - margin.left - margin.right;
+    var height = 800 - margin.top - margin.bottom;
 
 
 
@@ -134,6 +139,50 @@
         .text("Type of trafficking");
 
 
+      //legend
+      svg.append('rect')
+        .attr('class', 'legend_box')
+        .attr('y', height + margin.top)
+        .attr('x', width - 1.5 * margin.right)
+        .attr('width', 15)
+        .attr('height', 15)
+        .style('fill', '#303841')
+
+      svg.append('text')
+        .attr('class', 'legend_text')
+        .attr('y', height + margin.top + 12)
+        .attr('x', width - 1.5 * margin.right + 20)
+        .text('Minor sex trafficking')
+
+
+      svg.append('rect')
+        .attr('class', 'legend_box')
+        .attr('y', height + margin.top + 20)
+        .attr('x', width - 1.5 * margin.right)
+        .attr('width', 15)
+        .attr('height', 15)
+        .style('fill', '#f6c90e')
+
+      svg.append('text')
+        .attr('class', 'legend_text')
+        .attr('y', height + margin.top + 32)
+        .attr('x', width - 1.5 * margin.right + 20)
+        .text('Adult sex trafficking')
+
+
+      svg.append('rect')
+        .attr('class', 'legend_box')
+        .attr('y', height + margin.top + 40)
+        .attr('x', width - 1.5 * margin.right)
+        .attr('width', 15)
+        .attr('height', 15)
+        .style('fill', '#9a9b94')
+
+      svg.append('text')
+        .attr('class', 'legend_text')
+        .attr('y', height + margin.top + 52)
+        .attr('x', width - 1.5 * margin.right + 20)
+        .text('Labor trafficking')
       };
 
 
