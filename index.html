@@ -24,6 +24,8 @@
   d3.json("count_by_type.json", function(error, data) {
     if (error) throw error;
 
+    dataset = data;
+
     dataset.forEach(function (d) {
       d.type = d.type
       d.count = +d.count;
@@ -39,12 +41,12 @@
     console.log(dataset);
 
     var xScale = d3.scaleBand()
-      .domain(function(d){return d.type;})
-      .rangeRound([0,width]);
+      .domain(dataset.map(function(d) {return d.type;}))
+      .range([0,width]);
 
     var yScale = d3.scaleLinear()
-      .domain(d3.extent(dataset, function(d){ return d.count;}))
-      .rangeRound([height, 0])
+      .domain([0, d3.max(dataset, function(d) {return d.count;})])
+      .range([height, 0])
 
     svg = d3.select("#chart")
       .append('svg')
@@ -68,11 +70,14 @@
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d) {return xScale(d.type);})
-      .attr("y", 0)
-      .attr("width", 75)
+      .attr("y", function (d) {return yScale(d.count);})
+      .attr("width", function(d) {return xScale.bandwidth();})
       .attr("height", function(d) {return yScale(d.count);})
 
     };
+
+
+
 
 
   </script>
