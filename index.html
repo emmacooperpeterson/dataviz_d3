@@ -15,7 +15,7 @@
     .adult_bar {fill: #f6c90e;}
     .minor_bar {fill: #303841;}
 
-    #title {
+    .title {
       font-size: 20px;
       font-family: 'Montserrat', sans-serif;}
 
@@ -23,7 +23,7 @@
       font-size: 15px;
       font-family: 'Courier New', serif;}
 
-    #label {
+    .axisLabel {
       font-size: 10px;
       font-family: 'Montserrat', sans-serif;}
 
@@ -51,7 +51,7 @@
   <script>
 
   //set margins
-    var margin = {top: 150, right: 75, bottom: 100, left: 50};
+    var margin = {top: 150, right: 75, bottom: 100, left: 75};
     var width = 600 - margin.left - margin.right;
     var height = 800 - margin.top - margin.bottom;
 
@@ -75,7 +75,7 @@
 
 
     function makeBarchart() {
-      console.log(dataset);
+      //console.log(dataset);
 
       var xScale = d3.scaleBand()
         .domain(dataset.map(function(d) {return d.type;}))
@@ -90,16 +90,33 @@
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom);
 
+
+      //x axis
       svg.append('g')
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(d3.axisTop(xScale).tickSizeInner(0).tickSizeOuter(0));
+        .call(d3.axisTop(xScale)
+                .tickSizeInner(0)
+                .tickSizeOuter(0)
+                .tickPadding(5)
+                .tickValues([]));
+
+      //y axis
+      var yAxis = d3.axisLeft(yScale)
+                    .tickSizeInner(0)
+                    .tickSizeOuter(0)
+                    .tickPadding(5)
+                    .tickValues([0, 100, 200, 300, 400, 500, 600]);
 
       svg.append('g')
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(d3.axisLeft(yScale).tickSizeInner(0).tickSizeOuter(0));
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .call(yAxis)
+          .selectAll('text')
+          .attr('transform', 'rotate(-45)')
+
 
       var g = svg.append('g')
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
       //bars
       g.selectAll(".bar")
@@ -121,27 +138,42 @@
 
       //title
       svg.append("text")
-        .attr("id", "title")
-        .attr("y", margin.left)
+        .attr("class", "title")
+        .attr("y", margin.left - 20)
         .attr("x", margin.left)
         .style("text-anchor", "left")
-        .text("Minor sex trafficking comprises majority of U.S. human trafficking prosecutions");
+        .text("Minor sex trafficking comprises majority");
+
+      svg.append("text")
+          .attr("class", "title")
+          .attr("y", margin.left)
+          .attr("x", margin.left)
+          .style("text-anchor", "left")
+          .text("of U.S. human trafficking prosecutions");
 
       //subtitle
       svg.append("text")
         .attr("id", "subtitle")
-        .attr("y", margin.left * 1.5)
+        .attr("y", margin.left + 20)
         .attr("x", margin.left)
         .style("text-anchor", "left")
         .text("U.S. human trafficking cases by type");
 
       //axis labels
       svg.append("text")
-        .attr("id", "label")
-        .attr("y", margin.top - 30)
+        .attr("class", "axisLabel")
+        .attr("y", margin.top - 10)
         .attr("x", (width + margin.left + margin.right) / 2)
         .style("text-anchor", "middle")
-        .text("Type of trafficking");
+        .text("Type of Trafficking");
+
+      svg.append("text")
+        .attr("class", "axisLabel")
+        .attr("transform", "rotate(-90)")
+        .attr("y", margin.left - 35)
+        .attr("x", -1 * width)
+        .text("Number of Cases");
+
 
 
       //legend
