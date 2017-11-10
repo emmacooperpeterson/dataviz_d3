@@ -1,0 +1,26 @@
+svg {background-color: #f4f4f4;}
+
+/* bars */
+.labor_bar {fill: #9a9b94;}
+.adult_bar {fill: #f6c90e;}
+.minor_bar {fill: #303841;}
+
+.title {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;}
+
+#subtitle {
+  font-size: 15px;
+  font-family: 'Courier New', serif;}
+
+.axisLabel {
+  font-size: 10px;
+  font-family: 'Montserrat', sans-serif;}
+
+.legend_text {
+  font-size: 12px;
+  font-family: 'Courier New', serif;}
+
+#source {
+  font-size: 10px;
+  font-family: 'Montserrat Light', sans-serif;}
