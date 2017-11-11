@@ -1,0 +1,14 @@
+[
+    {
+        "type": "labor",
+        "count": "104"
+    },
+    {
+        "type": "adult_sex",
+        "count": "334"
+    },
+    {
+        "type": "minor_sex",
+        "count": "649"
+    }
+]
